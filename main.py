@@ -18,7 +18,13 @@ def test_extensions():
     for file_ in FileHandler(data_dir()).by_extension(".json"):
         print(file_)
 
-def Main():
+def test_empty():
+    fobj = FileHandler("aksdllf;kjasdf")
+    print(list(fobj.all_files()))
+    
+        
+
+def runtests():
     print(10*"*")
     print("Files")
     test_files()
@@ -29,6 +35,9 @@ def Main():
     print(10*"*")
     print("Extension (json)")
     test_extensions()
+
+def Main():
+    test_empty()
 
 if __name__ == '__main__':
     Main()

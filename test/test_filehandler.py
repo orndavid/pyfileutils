@@ -2,6 +2,7 @@
 Testing the File handler script
 """
 from pathlib import Path
+import pytest
 from ..pyfileutils import FileHandler 
 
 
@@ -22,6 +23,24 @@ def test_top_folder():
     topdir = top_folder()
     if not topdir.is_dir():
         raise FileNotFoundError(f"No test data folder found {topdir}")
+
+
+def test_empty():
+    """Ensure that an empty find returns an empty array"""
+    assert list(FileHandler("kdkso,wmxidal;ag").all_files()) == [], \
+                            "Empty folder does not return empty arrary"
+
+
+def test_exits():
+    """Make sure that existsing folder as topdir works"""
+    topdir = top_folder()
+    assert topdir.is_dir(), "Existing directory should return true"
+
+
+def test_does_not_exits():
+    """Make sure that non existing folder as topdir returns false"""
+    topdir = FileHandler("I_do_not_exist")
+    assert not topdir.is_dir(), "Existing directory should return true"
 
 
 def test_iter():

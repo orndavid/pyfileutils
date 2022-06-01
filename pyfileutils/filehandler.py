@@ -40,6 +40,7 @@ For now [V 0.1] we won't do that. If enough requests come in we might examine it
 """ 
 from pathlib import Path
 from typing import List
+import warnings
 
 class FileHandler:
     def __init__(self, topdir: str):
@@ -51,6 +52,13 @@ class FileHandler:
 
     def __next__(self):
         return next(self._iter)
+
+    def __repr__(self):
+        return f"FileHandler @ {self.topdir}"
+
+    def is_dir(self):
+        """Check if the folder set as top directory exists"""
+        return self.topdir.is_dir()
 
     def all_files(self) -> List[Path]:
         """Return a list of all the files in the folder"""
