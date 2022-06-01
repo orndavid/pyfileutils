@@ -20,6 +20,7 @@ fobj = FileHandler("some/dir/name")
 for file_ in fobj:
     print(file_)
 ```
+All the files are returned as pathlib.Path objects.
 
 Alternatively you can fetch the subset using "by_extension". Both create the same
 FileHandler class object but the list here only contains files with the selected
@@ -58,6 +59,18 @@ class FileHandler:
     def all_folders(self) -> List[Path]:
         """Return a list of all the folders that are within the top directory"""
         return FileHandler._get_all_folders(self.topdir)
+
+    def by_extension(self, extension: str) -> List[Path]:
+        """Fetch a list of with the correct extension"""
+        return FileHandler._get_all_by_extension(self.topdir, extension)
+
+    @staticmethod
+    def _get_all_by_extension(path: Path, ext: str) -> List[Path]:
+        if ext[0] != ".":
+            raise ValueError(f"Extension format incorrect {ext} should be e.g. '.json'")
+        if not ext:
+            raise ValueError("Function should be called with extension")
+        return path.rglob("*" + ext)
 
     @staticmethod
     def _get_all_files(path: Path) -> List[Path]:

@@ -14,6 +14,10 @@ def test_folders():
     for folder in FileHandler(data_dir()).all_folders():
         print(folder)
 
+def test_extensions():
+    for file_ in FileHandler(data_dir()).by_extension(".json"):
+        print(file_)
+
 def Main():
     print(10*"*")
     print("Files")
@@ -22,6 +26,9 @@ def Main():
     print("Folders")
     test_folders()
 
+    print(10*"*")
+    print("Extension (json)")
+    test_extensions()
 
 if __name__ == '__main__':
     Main()
